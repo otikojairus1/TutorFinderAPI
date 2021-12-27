@@ -57,7 +57,7 @@ class UserController extends Controller
        // $phone = $request->phone;
         $user     = User::create(['emailId' => $emailId, 'AccountType' => $AccountType, 'password' => Hash::make($password)]);
         //$token = $request->name->createToken('accessToken');
-        return response()->json(['success' => true, 'message' => 'user has registered successfully.']);
+        return response()->json(['success' => true, 'message' => 'user has registered successfully.', "data"=>$user]);
        // return response()->json(["woork"=>"yee"]);
     }
 
