@@ -131,7 +131,7 @@ class UserController extends Controller
         if($userlogged){
             return response()->json(['success'=>true,'data'=>$userlogged ], 200);
         }else{
-            return response()->json(['success'=>false,'error'=>'wrong login credentials' ], 401);
+            return response()->json(['success'=>false,'error'=>'wrong login credentials' ],200);
         }
 
     }
