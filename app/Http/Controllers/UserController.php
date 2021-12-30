@@ -142,9 +142,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function allTutors()
     {
-        //
+        $tutors = Account::where('accountType',"Tutor")->get();
+        return response()->json(['success'=>true,'Data'=>$tutors ],200);
     }
 
     /**
