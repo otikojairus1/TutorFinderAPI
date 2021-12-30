@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -67,9 +68,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function login(){
+        if(Auth::attempt(['emailId' => request('emailId'), 'password' => request('password')])){
+            $user = Auth::user();
+            return response()->json(['success'=>true,'userDetails'=>$user ], 200);
+        }
+        else{
+            return response()->json(['success'=>false,'error'=>'wrong login credentials' ], 401);
+        }
     }
 
     /**
