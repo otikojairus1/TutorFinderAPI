@@ -17,6 +17,8 @@ class CreateAccountsTable extends Migration
             $table->id();
             $table->string('emailId');
             $table->string('accountType');
+            $table->string('location')->nullable(); 
+            $table->string('fullnames')->nullable();
             $table->string('password');
             $table->timestamps();
         });

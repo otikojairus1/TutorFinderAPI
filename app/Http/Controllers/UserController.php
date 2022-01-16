@@ -169,7 +169,7 @@ class UserController extends Controller
             return response()->json(['success' => false, 'error' => $validator->messages()]);
         }
 
-        $userid = User::find($id);
+        $userid = Account::find($id);
 
         $userid->location =  $request->location;
         $userid->fullnames =  $request->fullnames;
