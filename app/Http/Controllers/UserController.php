@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\User;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,9 +17,23 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function addReview(Request $request)
     {
-        //
+        $rules = [
+            'reviewName' => 'required',
+            'review' => 'required',
+            'reviewTargetEmail' => 'required',
+        ];
+
+        $input     = $request->only('reviewName', 'review','reviewTargetEmail');
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+
+        $review = Review::create(['reviewName'=>$request->reviewName, 'review'=>$request->review, 'reviewTargetEmail'=>$request->reviewTargetEmail]);
+        return response()->json(['success' => true, 'message' => 'review added successfully.', "data"=>$review]);
     }
 
     /**
@@ -94,6 +109,11 @@ class UserController extends Controller
 
     }
 
+    public function list_all_reviews($id){
+        $allreviews = Review::where("reviewTargetEmail", $id)->get();
+        return response()->json(['success' => true, 'data' => $allreviews]);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -134,6 +154,28 @@ class UserController extends Controller
             return response()->json(['success'=>false,'error'=>'wrong login credentials' ],200);
         }
 
+    }
+
+    public function update_profile(Request $request, $id){
+        $rules = [
+            'location' => 'required',
+            'fullnames' => 'required',
+        ];
+
+        $input     = $request->only('location','fullnames');
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+
+        $userid = User::find($id);
+
+        $userid->location =  $request->location;
+        $userid->fullnames =  $request->fullnames;
+        $userid->save();
+       // $user = User::update(["location"=> $request->location, "fullnames"=>$request->fullnames]);
+        return response()->json(['success'=>true,'Data'=>$userid ]);
     }
 
     /**

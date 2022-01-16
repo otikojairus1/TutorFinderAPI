@@ -22,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [\App\Http\Controllers\UserController::class, "store"]);
 Route::post('/login', [\App\Http\Controllers\UserController::class, "login"]);
 Route::get('/tutors', [\App\Http\Controllers\UserController::class, "allTutors"]);
+Route::post('/add/review', [\App\Http\Controllers\UserController::class, "addReview"]);
+Route::get('/reviews/{id}', [\App\Http\Controllers\UserController::class, "list_all_reviews"]);
+Route::post('/update/profile/{id}', [\App\Http\Controllers\UserController::class, "update_profile"]);
+
