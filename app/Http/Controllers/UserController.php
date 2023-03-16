@@ -197,9 +197,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function broadcast(Request $request)
     {
-        //
+        $new = new \App\Models\Broadcasts();
+        $new->message = $request->message;
+        $new->save();
+
+        return response()->json(['success'=>true]);
     }
 
     /**
