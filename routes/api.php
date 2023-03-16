@@ -25,4 +25,5 @@ Route::get('/tutors', [\App\Http\Controllers\UserController::class, "allTutors"]
 Route::post('/add/review', [\App\Http\Controllers\UserController::class, "addReview"]);
 Route::get('/reviews/{id}', [\App\Http\Controllers\UserController::class, "list_all_reviews"]);
 Route::post('/update/profile/{id}', [\App\Http\Controllers\UserController::class, "update_profile"]);
+Route::post('/broadcast', [\App\Http\Controllers\UserController::class, "broadcast"]);
 
